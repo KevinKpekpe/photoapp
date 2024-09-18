@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordReset as MailPasswordReset;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
 
 class AdminUserController extends Controller
 {
@@ -31,7 +36,6 @@ class AdminUserController extends Controller
     public function create()
     {
         $user = new User();
-        dd($user);
         return view('admin.users.form', compact('user'));
     }
 
@@ -113,12 +117,11 @@ class AdminUserController extends Controller
 
     public function resetPassword(User $user)
     {
-        $newPassword = str_random(10);
+        $newPassword = Str::random(10);
         $user->update(['password' => Hash::make($newPassword)]);
 
         // Ici, vous devriez envoyer un e-mail à l'utilisateur avec son nouveau mot de passe
-        // Mail::to($user->email)->send(new PasswordReset($newPassword));
-
+        Mail::to($user->email)->send(new MailPasswordReset($newPassword));
         return redirect()->route('admin.users.index')->with('success', 'Mot de passe réinitialisé et envoyé à l\'utilisateur.');
     }
 }

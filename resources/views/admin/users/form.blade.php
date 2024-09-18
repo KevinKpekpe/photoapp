@@ -5,7 +5,7 @@
     <!-- Top Navbar -->
     <nav class="bg-white shadow-md p-4">
         <div class="flex justify-between items-center">
-            <h2 class="text-xl font-semibold">{{ isset($user) ? 'Modifier' : 'Ajouter' }} un utilisateur</h2>
+            <h2 class="text-xl font-semibold">{{ isset($user->id) ? 'Modifier' : 'Ajouter' }} un utilisateur</h2>
             <a href="{{ route('admin.users.index') }}" class="bg-gray-600 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-700 transition duration-300">
                 <i class="fas fa-arrow-left mr-2"></i>Retour à la liste
             </a>
@@ -15,7 +15,7 @@
     <!-- Add/Edit User Form -->
     <div class="p-6">
         <div class="bg-white rounded-lg shadow-md p-6">
-            <form action="{{ isset($user) ? route('admin.users.update', ['user' => $user->id]) : route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ isset($user) && $user->id ? route('admin.users.update', $user->id) : route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if(isset($user) && isset($user->id))
                 @method('PUT')
@@ -102,7 +102,7 @@
 
                 <div class="mt-6">
                     <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-700 transition duration-300">
-                        {{ isset($user) ? 'Mettre à jour' : 'Enregistrer' }} l'utilisateur
+                        {{ isset($user->id) ? 'Mettre à jour' : 'Enregistrer' }} l'utilisateur
                     </button>
                 </div>
             </form>
