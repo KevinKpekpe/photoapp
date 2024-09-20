@@ -14,9 +14,20 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+    /**
+     * Display the specified order with related data.
+     *
+     * @param  \App\Models\Order  $order
+     * @return \Illuminate\View\View
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function show(Order $order)
     {
-        $order->load('user', 'orderItems.product', 'payment');
+        // Load related models to the order
+        $order->load('user', 'orderItems.product', 'payments', 'payment');
+
+        // Return the view with the order data
         return view('admin.orders.show', compact('order'));
     }
 
@@ -29,11 +40,5 @@ class OrderController extends Controller
         $order->update($validatedData);
 
         return redirect()->route('admin.orders.show', $order)->with('success', 'Statut de la commande mis à jour avec succès.');
-    }
-
-    public function destroy(Order $order)
-    {
-        $order->update(['actif' => false]);
-        return redirect()->route('admin.orders.index')->with('success', 'Commande désactivée avec succès.');
     }
 }
