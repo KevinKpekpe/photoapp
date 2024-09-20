@@ -193,9 +193,9 @@ class PaymentController extends Controller
             return [
                 'price_data' => [
                     'currency' => 'eur',
-                    'unit_amount' => (int)($item->price * 100), // Assurez-vous que le montant est un entier
+                    'unit_amount' => (int)($item->price * 100),
                     'product_data' => [
-                        'name' => $product->name ?? 'Produit inconnu',
+                        'name' => $product->title ?? 'Produit inconnu',
                         'description' => $product->description ?? '',
                     ],
                 ],

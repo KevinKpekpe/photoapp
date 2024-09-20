@@ -35,26 +35,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ClientHomeController::class,'index'])->name('home');
-Route::get('/about', [ClientHomeController::class,'about'])->name('about');
-Route::get('/contact', [ClientHomeController::class,'contact'])->name('contact');
+Route::get('/', [ClientHomeController::class, 'index'])->name('home');
+Route::get('/about', [ClientHomeController::class, 'about'])->name('about');
+Route::get('/contact', [ClientHomeController::class, 'contact'])->name('contact');
 Route::get('/products', [ClientProductController::class, 'index'])->name('product.all');
 Route::get('/cart', [ClientHomeController::class, 'cart'])->name('cart');
 Route::get('/product/{id}', [ClientProductController::class, 'show'])->name('product.show');
 Route::post('/products/{product}/reviews', [App\Http\Controllers\Client\ReviewController::class, 'store'])->name('client.reviews.store');
 
-Route::get('/payment/options', [App\Http\Controllers\Client\PaymentController::class, 'showPaymentOptions'])->name('payment.options');
-Route::post('/payment/process', [App\Http\Controllers\Client\PaymentController::class, 'processPayment'])->name('payment.process');
-Route::get('/payment/success', [App\Http\Controllers\Client\PaymentController::class, 'success'])->name('payment.success');
-Route::get('/payment/cancel', [App\Http\Controllers\Client\PaymentController::class, 'cancel'])->name('payment.cancel');
-Route::get('/payment/mobile/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'mobileConfirm'])->name('payment.mobile.confirm');
-Route::get('/payment/cash/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'cashConfirm'])->name('payment.cash.confirm');
 
-Route::get('/pay',[ClientHomeController::class, 'pay'])->name('pay');
 
-Route::get('/login',[ClientLoginController::class,'showLoginForm'])->name('login')->middleware('guest');
-Route::get('/logout',[ClientLoginController::class,'logout'])->name('logout')->middleware('auth');
-Route::post('/login',[ClientLoginController::class,'login'])->name('dologin');
+Route::get('/login', [ClientLoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::get('/logout', [ClientLoginController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/login', [ClientLoginController::class, 'login'])->name('dologin');
 
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
@@ -82,19 +75,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/payment/options', [App\Http\Controllers\Client\PaymentController::class, 'showPaymentOptions'])->name('payment.options');
+    Route::post('/payment/process', [App\Http\Controllers\Client\PaymentController::class, 'processPayment'])->name('payment.process');
+    Route::get('/payment/success', [App\Http\Controllers\Client\PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/payment/cancel', [App\Http\Controllers\Client\PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::get('/payment/mobile/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'mobileConfirm'])->name('payment.mobile.confirm');
+    Route::get('/payment/cash/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'cashConfirm'])->name('payment.cash.confirm');
 });
 // Admin Routes
-Route::get('/admin/login',[LoginController::class,'login'])->name('admin.login');
-Route::post('/admin/login',[LoginController::class,'doLogin'])->name('admin.dologin');
-Route::prefix('admin')->name('admin.')->middleware(['admin','role'])->group(function(){
+Route::get('/admin/login', [LoginController::class, 'login'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'doLogin'])->name('admin.dologin');
+Route::prefix('admin')->name('admin.')->middleware(['admin', 'role'])->group(function () {
     Route::resource('users', AdminUserController::class);
     Route::post('users/{user}/toggle-active', [AdminUserController::class, 'toggleActive'])->name('users.toggle-active');
     Route::post('users/{user}/reset-password', [AdminUserController::class, 'resetPassword'])->name('users.reset-password');
-    Route::get('/',[HomeController::class,'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('marques', MarqueController::class);
     Route::resource('categories', CategorieController::class);
     Route::resource('products', ProductController::class);
-    Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('orders', OrderController::class)->except(['create', 'store', 'edit', 'update']);
     Route::put('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
     Route::put('order-items/{orderItem}', [OrderItemController::class, 'update'])->name('order-items.update');
@@ -107,4 +106,3 @@ Route::prefix('admin')->name('admin.')->middleware(['admin','role'])->group(func
     Route::resource('wishlists', WishlistController::class)->only(['index', 'show', 'destroy']);
     Route::patch('categories/{category}/activate', [CategorieController::class, 'activate'])->name('categories.activate');
 });
-
