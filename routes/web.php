@@ -43,6 +43,14 @@ Route::get('/cart', [ClientHomeController::class, 'cart'])->name('cart');
 Route::get('/product/{id}', [ClientProductController::class, 'show'])->name('product.show');
 Route::post('/products/{product}/reviews', [App\Http\Controllers\Client\ReviewController::class, 'store'])->name('client.reviews.store');
 
+Route::get('/payment/options', [App\Http\Controllers\Client\PaymentController::class, 'showPaymentOptions'])->name('payment.options');
+Route::post('/payment/process', [App\Http\Controllers\Client\PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/payment/success', [App\Http\Controllers\Client\PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/cancel', [App\Http\Controllers\Client\PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::get('/payment/mobile/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'mobileConfirm'])->name('payment.mobile.confirm');
+Route::get('/payment/cash/confirm/{order}', [App\Http\Controllers\Client\PaymentController::class, 'cashConfirm'])->name('payment.cash.confirm');
+
+Route::get('/pay',[ClientHomeController::class, 'pay'])->name('pay');
 
 Route::get('/login',[ClientLoginController::class,'showLoginForm'])->name('login')->middleware('guest');
 Route::get('/logout',[ClientLoginController::class,'logout'])->name('logout')->middleware('auth');

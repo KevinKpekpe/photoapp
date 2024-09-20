@@ -22,4 +22,7 @@ class HomeController extends Controller
     public function contact(){
         return view ('clients.contact');
     }
+    public function pay(){
+        return view ('clients.paiements.index');
+    }
 }

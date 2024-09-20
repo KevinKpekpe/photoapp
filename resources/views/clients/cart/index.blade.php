@@ -96,9 +96,9 @@
                         <span>Total</span>
                         <span>{{ number_format($total, 2) }} €</span>
                     </div>
-                    <button class="w-full mt-6 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300">
-                        Procéder au paiement
-                    </button>
+                    <a href="{{ route('payment.options') }}" class="w-full mt-6 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300">
+                        Proc�der au paiement
+                    </a>
                 </div>
             @else
                 <div class="text-center text-gray-600">
