@@ -45,12 +45,12 @@
                         <div class="text-center animate-fade-in-up">
                             <i class="fas fa-map-marker-alt text-3xl text-blue-600 mb-4"></i>
                             <h3 class="text-xl font-semibold mb-2">Adresse</h3>
-                            <p>123 Rue du Commerce, 75001 Paris, France</p>
+                            <p>123 Ngaba Salongo, Kinshasa</p>
                         </div>
                         <div class="text-center animate-fade-in-up">
                             <i class="fas fa-phone text-3xl text-blue-600 mb-4"></i>
                             <h3 class="text-xl font-semibold mb-2">Téléphone</h3>
-                            <p>+33 1 23 45 67 89</p>
+                            <p>+243 827786347</p>
                         </div>
                         <div class="text-center animate-fade-in-up">
                             <i class="fas fa-envelope text-3xl text-blue-600 mb-4"></i>

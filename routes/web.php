@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\LoginController as ClientLoginController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\PasswordController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController;
@@ -72,9 +73,14 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::get('/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('password.change')->middleware('auth');
 Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth');
 Route::middleware(['auth'])->group(function () {
+    Route::get('/orders', [ClientOrderController::class, 'index'])->name('client.orders.index');
+    Route::get('/orders/{id}', [ClientOrderController::class, 'show'])->name('client.orders.show');
+    Route::get('/orders/{id}/cancel', [ClientOrderController::class, 'cancel'])->name('client.orders.cancel');
+    Route::get('/orders/{id}/track', [ClientOrderController::class, 'trackOrder'])->name('client.orders.track');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/commandes',[ClientOrderController::class,'orders']);
     Route::get('/payment/options', [App\Http\Controllers\Client\PaymentController::class, 'showPaymentOptions'])->name('payment.options');
     Route::post('/payment/process', [App\Http\Controllers\Client\PaymentController::class, 'processPayment'])->name('payment.process');
     Route::get('/payment/success', [App\Http\Controllers\Client\PaymentController::class, 'success'])->name('payment.success');

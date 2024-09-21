@@ -33,6 +33,12 @@ class Order extends Model
         return $this->hasMany(Payment::class);
     }
 
+    // Si vous avez besoin d'une relation pour un seul paiement (peut-être le plus récent?)
+    public function payment()
+    {
+        return $this->hasOne(Payment::class)->latest();
+    }
+
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class, 'order_coupons')->withPivot('discount_amount');

@@ -19,7 +19,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
                     <p class="text-gray-400">Email: info@photoshop.com</p>
-                    <p class="text-gray-400">Téléphone: +33 1 23 45 67 89</p>
+                    <p class="text-gray-400">Téléphone: +243 82776347</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
