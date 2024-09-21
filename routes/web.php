@@ -73,6 +73,7 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::get('/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('password.change')->middleware('auth');
 Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update')->middleware('auth');
 Route::middleware(['auth'])->group(function () {
+    Route::get('/orders/{id}/invoice', [ClientOrderController::class, 'printInvoice'])->name('client.orders.invoice');
     Route::get('/orders', [ClientOrderController::class, 'index'])->name('client.orders.index');
     Route::get('/orders/{id}', [ClientOrderController::class, 'show'])->name('client.orders.show');
     Route::get('/orders/{id}/cancel', [ClientOrderController::class, 'cancel'])->name('client.orders.cancel');

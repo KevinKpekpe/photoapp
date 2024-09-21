@@ -71,6 +71,9 @@
             <a href="{{ route('client.orders.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                 Retour aux commandes
             </a>
+            <a href="{{ route('client.orders.invoice', $order->id) }}" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Imprimer la facture
+            </a>
             @if($order->status === 'pending')
             <form action="{{ route('client.orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette commande?');">
                 @csrf

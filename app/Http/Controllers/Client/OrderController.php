@@ -64,4 +64,15 @@ class OrderController extends Controller
 
         return view('clients.dashboard.track', compact('order', 'trackingInfo'));
     }
+
+    public function printInvoice($id)
+    {
+        $order = Order::with(['orderItems.product', 'user'])->findOrFail($id);
+
+        if ($order->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('clients.dashboard.invoice', compact('order'));
+    }
 }
